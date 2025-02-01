@@ -7,7 +7,7 @@ import { FaCcDiscover } from "react-icons/fa6";
 import { CiSettings } from "react-icons/ci";
 export default function Home() {
   return (
-    <div className="relative h-screen w-full overflow-hidden flex flex-col bg-green">
+    <div className={styles.container}>
       {/* <main className={styles.main}>
         <Image
           className={styles.logo}
@@ -117,7 +117,7 @@ export default function Home() {
         </nav>
       </header>
 
-      <div className="relative w-full h-screen">
+      <div className={styles.imageContainer}>
         <Image
           src={screen1}
           alt="Wallpaper"
@@ -125,6 +125,10 @@ export default function Home() {
           objectFit="cover"
           quality={100}
         />
+        <div className={styles.centeredText}>
+          NEXTJS POC
+        </div>
+
       </div>
 
     </div>
