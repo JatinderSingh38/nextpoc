@@ -48,9 +48,14 @@ const Menu = () => {
 
     useEffect(() => {
         if (tl.current) {
-            isMenuOpen ? tl.current.play() : tl.current.reverse();
+            if (isMenuOpen) {
+                tl.current.play();
+            } else {
+                tl.current.reverse();
+            }
         }
     }, [isMenuOpen]);
+
 
     return (
         <div className="menu-container" ref={container}>
