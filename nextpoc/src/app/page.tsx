@@ -41,7 +41,7 @@ export default function Home() {
             <h3 className="blog-description">
               Explore the latest trends and innovations in interactive 3D design and how you can enhance your website with stunning visualizations.
             </h3>
-            <a href="/" className="read-more">Read More...</a>
+            <a href="" className="read-more">Read More...</a>
           </div>
         )}
       </div>

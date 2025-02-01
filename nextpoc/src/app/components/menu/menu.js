@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "./menu.css";
 import { gsap } from "gsap";
-import { useGSAP } from "@gsap/react";
+// import { useGSAP } from "@gsap/react";
 
 const menuLinks = [
     { path: "/", label: "home" },
