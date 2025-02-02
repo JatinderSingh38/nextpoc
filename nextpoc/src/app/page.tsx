@@ -101,22 +101,14 @@ export default function Home() {
         overflow: "hidden"
       }}>
 
-        <div className="text-container" style={{
-          position: "absolute",
-          top: "10%",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontSize: "2rem",
-          fontWeight: "bold",
-          display: "flex",
-          gap: "10px",
-        }}>
-          {["THIS", "IS", "NEXTJS", "CREATION", "TOWARDS", "SUCESS"].map((word, index) => (
-            <span key={index} className="text-word" style={{ opacity: 0, color: "white", paddingTop: 15 }}>
+        <div className="text-container">
+          {["THIS", "IS", "NEXTJS", "CREATION", "TOWARDS", "SUCCESS"].map((word, index) => (
+            <span key={index} className="text-word">
               {word}
             </span>
           ))}
         </div>
+
 
         <div className="image-container" style={{
           position: "relative",
