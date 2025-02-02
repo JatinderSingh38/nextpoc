@@ -3,7 +3,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import "./menu.css";
 import { gsap } from "gsap";
-// import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const menuLinks = [
     { path: "/", label: "home" },
@@ -16,6 +18,7 @@ const Menu = () => {
     const container = useRef(null);
     const menuOverlay = useRef(null);
     const menuLinksRef = useRef([]);
+    const backgroundRef = useRef(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const tl = useRef(null);
 
@@ -56,10 +59,21 @@ const Menu = () => {
         }
     }, [isMenuOpen]);
 
+    useEffect(() => {
+        gsap.to(backgroundRef.current, {
+            background: "linear-gradient(180deg, #0077ff, #ff0077)",
+            scrollTrigger: {
+                trigger: backgroundRef.current,
+                start: "top top",
+                end: "bottom top",
+                scrub: 1,
+            },
+        });
+    }, []);
 
     return (
         <div className="menu-container" ref={container}>
-            <div className="menu-bar">
+            <div className="menu-bar" ref={backgroundRef}>
                 <div className="menu-logo">
                     <Link href="/">home</Link>
                 </div>

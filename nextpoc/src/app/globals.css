@@ -32,6 +32,11 @@ p {
   background-size: cover;
 }
 
+.page-content.hero2 {
+  background: url("./scifi2.gif") no-repeat 50% 50%;
+  background-size: cover;
+}
+
 h1 {
   position: absolute;
   top: 50%;
@@ -54,5 +59,107 @@ h1 sup {
 @media(max-width:900px) {
   .page-content h1 {
     font-size: 10;
+  }
+}
+
+.animated-text-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  text-align: center;
+  opacity: 0;
+  animation: fadeIn 2s forwards;
+}
+
+.blog-title {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 16px;
+  animation: slideUp 1.5s ease-out;
+  display: inline-block;
+  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out;
+}
+
+.blog-title:hover {
+  animation: windEffect 2s infinite ease-in-out;
+  opacity: 0.9;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
+}
+
+.blog-description {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  animation: slideUp 1.5s ease-out 0.5s;
+  display: inline-block;
+  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out;
+}
+
+.blog-description:hover {
+  animation: windEffect 2s infinite ease-in-out;
+  opacity: 0.9;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
+}
+
+.read-more {
+  font-size: 1.2em;
+  color: #ffeb3b;
+  text-decoration: none;
+  padding: 8px 16px;
+  border: 2px solid #ffeb3b;
+  border-radius: 5px;
+  background: transparent;
+  transition: all 0.3s ease, box-shadow 0.3s ease;
+}
+
+.read-more:hover {
+  background-color: #ffeb3b;
+  color: #333;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes windEffect {
+  0% {
+    transform: translateX(-10px) translateY(5px);
+  }
+
+  25% {
+    transform: translateX(10px) translateY(-5px);
+  }
+
+  50% {
+    transform: translateX(-10px) translateY(5px);
+  }
+
+  75% {
+    transform: translateX(10px) translateY(-5px);
+  }
+
+  100% {
+    transform: translateX(-10px) translateY(5px);
   }
 }

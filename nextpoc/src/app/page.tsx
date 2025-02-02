@@ -1,25 +1,16 @@
-// import Spline from "@splinetool/react-spline";
-
-// export default function Home() {
-//   return (
-//     <div className="page-content hero">
-
-//       <div style={{ width: "100%", height: "100vh" }}>
-//         <Spline
-//           scene="https://prod.spline.design/rdY5Noxnujzn3hF0/scene.splinecode"
-//         />
-//         {/* <Spline
-//           scene="https://prod.spline.design/GcgbQzDxn2vWxWo1/scene.splinecode"
-//         /> */}
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
 import Spline from "@splinetool/react-spline";
 import { useState, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import Image from "next/image";
+import image1 from "./image1.jpg";
+import image2 from "./image2.jpg";
+import image3 from "./image3.jpg";
+import image4 from "./image4.jpg";
+
+gsap.registerPlugin(ScrollToPlugin);
 
 export default function Home() {
   const [showText, setShowText] = useState(false);
@@ -28,101 +19,122 @@ export default function Home() {
     setTimeout(() => setShowText(true), 2000);
   }, []);
 
-  return (
-    <div className="page-content hero" style={{ position: "relative" }}>
-      <div style={{ width: "100%", height: "100vh", position: "relative" }}>
-        <Spline
-          scene="https://prod.spline.design/rdY5Noxnujzn3hF0/scene.splinecode"
-        />
+  useEffect(() => {
+    const hero2 = document.querySelector(".page-content.hero2");
+    const textWords = document.querySelectorAll(".text-word");
 
-        {showText && (
-          <div className="animated-text-container">
-            <h2 className="blog-title">Exciting New Features in 3D Design!</h2>
-            <h3 className="blog-description">
-              Explore the latest trends and innovations in interactive 3D design and how you can enhance your website with stunning visualizations.
-            </h3>
-            <a href="" className="read-more">Read More...</a>
-          </div>
-        )}
+    if (!hero2 || !textWords.length) return;
+
+    const handleMouseEnter = () => {
+      gsap.to(".image", {
+        opacity: 1,
+        scale: 1,
+        x: (index) => index * 220,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.2,
+      });
+
+      gsap.fromTo(
+        textWords,
+        { opacity: 0, y: 20 },
+        {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 0.5,
+          ease: "power2.out",
+        }
+      );
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(".image", {
+        opacity: 0,
+        scale: 0,
+        x: 0,
+        duration: 0.8,
+        ease: "power2.inOut",
+      });
+
+      gsap.to(textWords, {
+        opacity: 0,
+        y: 20,
+        duration: 0.3,
+        stagger: 0.1,
+      });
+    };
+
+    hero2.addEventListener("mouseenter", handleMouseEnter);
+    hero2.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      hero2.removeEventListener("mouseenter", handleMouseEnter);
+      hero2.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, []);
+
+  return (
+    <>
+      <div className="page-content hero" style={{ position: "relative" }}>
+        <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+          <Spline scene="https://prod.spline.design/rdY5Noxnujzn3hF0/scene.splinecode" />
+
+          {showText && (
+            <div className="animated-text-container">
+              <h2 className="blog-title">Exciting New Features in 3D Design!</h2>
+              <h3 className="blog-description">
+                Explore the latest trends and innovations in interactive 3D design and how you can enhance your website with stunning visualizations.
+              </h3>
+              <a href="" className="read-more">Read More...</a>
+            </div>
+          )}
+        </div>
       </div>
 
-      <style>{`
-        .animated-text-container {
-          position: absolute;
-          top: 20%;
-          left: 50%;
-          transform: translateX(-50%);
-          color: white;
-          text-align: center;
-          opacity: 0;
-          animation: fadeIn 2s forwards;
-        }
+      <div className="page-content hero2" style={{
+        position: "relative",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden"
+      }}>
 
-        .blog-title {
-          font-size: 2.5em;
-          font-weight: bold;
-          margin-bottom: 16px;
-          animation: slideUp 1.5s ease-out;
-          display: inline-block;
-          transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out;
-        }
+        <div className="text-container" style={{
+          position: "absolute",
+          top: "10%",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontSize: "2rem",
+          fontWeight: "bold",
+          display: "flex",
+          gap: "10px",
+        }}>
+          {["THIS", "IS", "NEXTJS", "CREATION", "TOWARDS", "SUCESS"].map((word, index) => (
+            <span key={index} className="text-word" style={{ opacity: 0, color: "white", paddingTop: 15 }}>
+              {word}
+            </span>
+          ))}
+        </div>
 
-        .blog-title:hover {
-          animation: windEffect 2s infinite ease-in-out;
-          opacity: 0.9;
-          box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
-        }
-
-        .blog-description {
-          font-size: 1.2em;
-          margin-bottom: 30px;
-          animation: slideUp 1.5s ease-out 0.5s;
-          display: inline-block;
-          transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease-in-out;
-        }
-
-        .blog-description:hover {
-          animation: windEffect 2s infinite ease-in-out;
-          opacity: 0.9;
-          box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
-        }
-
-        .read-more {
-          font-size: 1.2em;
-          color: #ffeb3b;
-          text-decoration: none;
-          padding: 8px 16px;
-          border: 2px solid #ffeb3b;
-          border-radius: 5px;
-          background: transparent;
-          transition: all 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .read-more:hover {
-          background-color: #ffeb3b;
-          color: #333;
-          transform: scale(1.1);
-          box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 0 0 30px rgba(0, 255, 0, 0.7), 0 0 40px rgba(0, 0, 255, 0.7);
-        }
-
-        @keyframes fadeIn {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-          0% { transform: translateY(20px); opacity: 0; }
-          100% { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes windEffect {
-          0% { transform: translateX(-10px) translateY(5px); }
-          25% { transform: translateX(10px) translateY(-5px); }
-          50% { transform: translateX(-10px) translateY(5px); }
-          75% { transform: translateX(10px) translateY(-5px); }
-          100% { transform: translateX(-10px) translateY(5px); }
-        }
-      `}</style>
-    </div>
+        <div className="image-container" style={{
+          position: "relative",
+          top: "10%",
+          left: "5%",
+          width: "90%",
+          transform: "translate(10%, 10%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "left",
+          justifyContent: "space-between"
+        }}>
+          <Image src={image1} alt="Image 1" className="image" width={180} height={180} style={{ opacity: 0, scale: 0, position: "absolute" }} />
+          <Image src={image2} alt="Image 2" className="image" width={180} height={180} style={{ opacity: 0, scale: 0, position: "absolute" }} />
+          <Image src={image3} alt="Image 3" className="image" width={180} height={180} style={{ opacity: 0, scale: 0, position: "absolute" }} />
+          <Image src={image4} alt="Image 4" className="image" width={180} height={180} style={{ opacity: 0, scale: 0, position: "absolute" }} />
+        </div>
+      </div>
+    </>
   );
 }
